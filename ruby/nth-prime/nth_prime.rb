@@ -13,6 +13,7 @@ class Prime
       return true if num == n
       return false if n % num == 0
     end
+    true
   end
 
   def self.primes(border)
