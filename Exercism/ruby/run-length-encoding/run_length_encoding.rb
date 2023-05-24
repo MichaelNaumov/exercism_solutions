@@ -14,14 +14,15 @@ class RunLengthEncoding
   def self.decode(input)
     return "" if input == ""
 
-    result = input.scan(/\d+|\D+/).each_slice(2).map do |num, letter|
-      res = ""
-      res << Array.new(num.to_i, letter).join
-      res
+    result = input.scan(/\d+\D|\D/).map do |num_letter|
+      num,letter = if num_letter.length == 1
+        [1, num_letter]
+      else
+        num_letter.scan(/\d+|\D/)
+      end
+      Array.new(num.to_i, letter).join
     end
 
     result.join
   end
 end
-
-p RunLengthEncoding.decode('12X3Y4Z')
